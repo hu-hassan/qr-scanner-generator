@@ -76,8 +76,6 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.menu -> {
                     // Handle scan menu item
-//                    Log.d("MainActivity", "Scan menu item clicked")
-//                    startQrScanner()
                     if (bottomSheet.visibility == View.GONE) {
                         bottomSheet.visibility = View.VISIBLE
                         grayShade.visibility = View.VISIBLE
@@ -105,7 +103,6 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 100 && resultCode == RESULT_OK) {
             binding.qrScannerFrame.visibility = FrameLayout.GONE
             val result = data?.getStringExtra("SCAN_RESULT")
-            Log.d("MainActivity", "QR Code Result: $result")
             // Handle the result here
             binding.headerTitle.text = "Result: $result"
             binding.cardView1.setOnClickListener {
@@ -193,12 +190,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 if (sharedPreferences.getBoolean("vibrate", false)) {
-                    Log.d("CustomScannerActivity", "Vibrating")
                     vibrate()
                 }
                 // Handle the result here
                 // Optionally, pass the result back to MainActivity
-                Log.d("CustomScannerActivity", "QR Code Result: ${result.text}")
                 val intent = Intent()
                 intent.putExtra("SCAN_RESULT", result.text)
                 setResult(RESULT_OK, intent)
@@ -224,11 +219,6 @@ class MainActivity : AppCompatActivity() {
                     R.id.menu -> {
                         bottomNavigationView.visibility = BottomNavigationView.GONE
                         // Handle scan menu item
-                        Log.d("CustomScannerActivity", "Scan menu item clicked")
-//                        supportFragmentManager.beginTransaction()
-//                            .replace(R.id.qr_scanner_frame, Fragment()).commit()
-//
-//                        barcodeView.resume()
                         if (bottomSheet.visibility == View.GONE) {
                             bottomSheet.visibility = View.VISIBLE
                             grayShade.visibility = View.VISIBLE
@@ -319,7 +309,6 @@ class MainActivity : AppCompatActivity() {
         private fun vibrate() {
             if (vibrator.hasVibrator()) {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    Log.d("CustomScannerActivity", "Vibrating")
                     vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
                 } else {
                     vibrator.vibrate(500)
@@ -347,7 +336,6 @@ class MainActivity : AppCompatActivity() {
                 else
                 {
                     // Handle the case where no QR code was found
-                    Log.d("CustomScannerActivity", "No QR code found in the image")
                     Toast.makeText(this, "No QR code found in the image", Toast.LENGTH_SHORT).show()
                 }
             }
